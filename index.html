@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="header">
+        Snake Game Schulprojekt
+        <p>Steuerung: Pfeiltasten/WASD</p>
+    </div>
+    
+    <div id="playButtonContainer">
+        <button id="playButton">Spiel starten [SPACE]</button>
+    </div>
+    <div id="volumeControl">
+        <label for="volumeSlider">Lautstärke: </label>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+        <span id="volumeValue">100%</span>
+    
+</div>
+
+<div id="score">Punktestand: 0</div>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <script src="game.js"></script>
+    <div id="gameOverButtonContainer" style="display: none;">
+        <button id="gameOverButton">Game Over - Neu starten [SPACE]</button>
+    
+</div>
+
+<div id="quests">
+        <p id="quest1">Quest: Sammle 10 Äpfel - <span id="quest1Status">0/10</span></p>
+    </div>
+</body>
+</html>
