@@ -5,7 +5,7 @@ const scale = 20;
 const rows = canvas.height / scale;
 const columns = canvas.width / scale;
 
-const eatSound = new Audio('sound5.wav');
+const eatSound = new Audio('sound5.wav'); // Im gleichen Ordner wie index.html und game.js
 
 let snake;
 let apple;
@@ -13,17 +13,14 @@ let gameInterval;
 let score = 0;
 
 const appleImage = new Image();
-appleImage.src = 'apfel.png';  // Lokaler Pfad zum Bild oder GitHub URL
+appleImage.src = 'apfel.png';  // Im gleichen Ordner wie index.html und game.js
 
-// Laden des Apfelbildes mit Fehlerbehandlung
 appleImage.onload = function() {
     console.log("Apple image loaded successfully!");
 };
 
 appleImage.onerror = function() {
-    console.error("Failed to load the apple image. Using fallback.");
-    // Fallback-Bild setzen, falls das Apfelbild nicht geladen wird
-    appleImage.src = 'fallback_apple.png';  // Beispiel eines Fallbacks
+    console.error("Failed to load the apple image. Please check the file path.");
 };
 
 const playButton = document.getElementById('playButton');
@@ -169,7 +166,7 @@ function Apple() {
         if (appleImage.complete && appleImage.naturalWidth > 0) {
             ctx.drawImage(appleImage, this.x * scale, this.y * scale, scale, scale);
         } else {
-            // Bild noch nicht geladen oder nicht verfügbar, daher ein Platzhalter zeichnen
+            // Wenn das Bild noch nicht verfügbar ist, zeichne ein Platzhalter-Rechteck
             ctx.fillStyle = 'red';
             ctx.fillRect(this.x * scale, this.y * scale, scale, scale);
         }
