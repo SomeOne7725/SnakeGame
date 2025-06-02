@@ -5,16 +5,18 @@ const scale = 20;
 const rows = canvas.height / scale;
 const columns = canvas.width / scale;
 
-const eatSound = new Audio('sound5.wav'); // Im gleichen Ordner wie index.html und game.js
+const eatSound = new Audio('sound5.wav');
 
 let snake;
 let apple;
 let gameInterval;
 let score = 0;
 
+// Pfad zum Apfelbild (muss im gleichen Ordner wie game.js und index.html liegen)
 const appleImage = new Image();
-appleImage.src = 'apfel.png';  // Im gleichen Ordner wie index.html und game.js
+appleImage.src = 'apfel.png';  
 
+// Fehlerbehandlung, falls das Bild nicht geladen werden kann
 appleImage.onload = function() {
     console.log("Apple image loaded successfully!");
 };
@@ -163,10 +165,11 @@ function Apple() {
     };
 
     this.draw = function() {
+        // Überprüfen, ob das Bild erfolgreich geladen wurde
         if (appleImage.complete && appleImage.naturalWidth > 0) {
             ctx.drawImage(appleImage, this.x * scale, this.y * scale, scale, scale);
         } else {
-            // Wenn das Bild noch nicht verfügbar ist, zeichne ein Platzhalter-Rechteck
+            // Falls das Bild nicht geladen wurde, zeigen wir einen roten Platzhalter an
             ctx.fillStyle = 'red';
             ctx.fillRect(this.x * scale, this.y * scale, scale, scale);
         }
