@@ -13,14 +13,17 @@ let gameInterval;
 let score = 0;
 
 const appleImage = new Image();
-appleImage.src = 'https://someone7725.github.io/SnakeGame/apfel.png';  // Vollständiger URL-Pfad
+appleImage.src = 'apfel.png';  // Lokaler Pfad zum Bild oder GitHub URL
 
+// Laden des Apfelbildes mit Fehlerbehandlung
 appleImage.onload = function() {
     console.log("Apple image loaded successfully!");
 };
 
 appleImage.onerror = function() {
-    console.error("Failed to load the apple image. Please check the file path.");
+    console.error("Failed to load the apple image. Using fallback.");
+    // Fallback-Bild setzen, falls das Apfelbild nicht geladen wird
+    appleImage.src = 'fallback_apple.png';  // Beispiel eines Fallbacks
 };
 
 const playButton = document.getElementById('playButton');
