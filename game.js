@@ -29,6 +29,22 @@ function setup() {
     snake = new Snake();
     apple = new Apple();
     gameInterval = setInterval(game, 120);
+
+    // Verschiebe das Hinzufügen des Event-Listeners hierhin, nachdem snake initialisiert wurde
+    document.addEventListener('keydown', function(event) {
+        if ((event.key === ' ' || event.key === 'Enter') && playButtonContainer.style.display !== 'none') {
+            startGame();
+        }
+        if (event.key === ' ' || event.key === 'Enter') {
+            const gameOverButtonContainer = document.getElementById('gameOverButtonContainer');
+            if (gameOverButtonContainer.style.display === 'block') {
+                restartGame();
+            }
+        }
+        if (snake) {  // Sicherstellen, dass snake existiert, bevor die Methode aufgerufen wird
+            snake.changeDirection(event);
+        }
+    });
 }
 
 function game() {
@@ -163,19 +179,6 @@ function Apple() {
         }
     };
 }
-
-document.addEventListener('keydown', function(event) {
-    if ((event.key === ' ' || event.key === 'Enter') && playButtonContainer.style.display !== 'none') {
-        startGame();
-    }
-    if (event.key === ' ' || event.key === 'Enter') {
-        const gameOverButtonContainer = document.getElementById('gameOverButtonContainer');
-        if (gameOverButtonContainer.style.display === 'block') {
-            restartGame();
-        }
-    }
-    snake.changeDirection(event);
-});
 
 document.addEventListener('DOMContentLoaded', function() {
     const gameOverButton = document.getElementById('gameOverButton');
