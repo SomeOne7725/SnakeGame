@@ -5,7 +5,7 @@ const scale = 20;
 const rows = canvas.height / scale;
 const columns = canvas.width / scale;
 
-const eatSound = new Audio('sounds/sound5.wav'); // Stelle sicher, dass die Datei im Ordner "sounds" liegt
+const eatSound = new Audio('sound5.wav');
 
 let snake;
 let apple;
@@ -13,13 +13,14 @@ let gameInterval;
 let score = 0;
 
 const appleImage = new Image();
+appleImage.src = 'https://someone7725.github.io/SnakeGame/apfel.png';  // Vollständiger URL-Pfad
 
-// Setze den Pfad für das Bild - stelle sicher, dass es im richtigen Ordner liegt
-appleImage.src = 'images/apfel.png';  // Ich nehme an, dass sich die Bilddatei im Ordner "images" befindet
-
-// Warten, bis das Bild vollständig geladen ist, bevor es verwendet wird
 appleImage.onload = function() {
     console.log("Apple image loaded successfully!");
+};
+
+appleImage.onerror = function() {
+    console.error("Failed to load the apple image. Please check the file path.");
 };
 
 const playButton = document.getElementById('playButton');
@@ -36,22 +37,6 @@ function setup() {
     snake = new Snake();
     apple = new Apple();
     gameInterval = setInterval(game, 120);
-
-    // Verschiebe das Hinzufügen des Event-Listeners hierhin, nachdem snake initialisiert wurde
-    document.addEventListener('keydown', function(event) {
-        if ((event.key === ' ' || event.key === 'Enter') && playButtonContainer.style.display !== 'none') {
-            startGame();
-        }
-        if (event.key === ' ' || event.key === 'Enter') {
-            const gameOverButtonContainer = document.getElementById('gameOverButtonContainer');
-            if (gameOverButtonContainer.style.display === 'block') {
-                restartGame();
-            }
-        }
-        if (snake) {  // Sicherstellen, dass snake existiert, bevor die Methode aufgerufen wird
-            snake.changeDirection(event);
-        }
-    });
 }
 
 function game() {
@@ -178,15 +163,28 @@ function Apple() {
     };
 
     this.draw = function() {
-        if (appleImage.complete) {
+        if (appleImage.complete && appleImage.naturalWidth > 0) {
             ctx.drawImage(appleImage, this.x * scale, this.y * scale, scale, scale);
         } else {
-            // Alternativ-Rendering, wenn das Bild noch nicht geladen ist
+            // Bild noch nicht geladen oder nicht verfügbar, daher ein Platzhalter zeichnen
             ctx.fillStyle = 'red';
             ctx.fillRect(this.x * scale, this.y * scale, scale, scale);
         }
     };
 }
+
+document.addEventListener('keydown', function(event) {
+    if ((event.key === ' ' || event.key === 'Enter') && playButtonContainer.style.display !== 'none') {
+        startGame();
+    }
+    if (event.key === ' ' || event.key === 'Enter') {
+        const gameOverButtonContainer = document.getElementById('gameOverButtonContainer');
+        if (gameOverButtonContainer.style.display === 'block') {
+            restartGame();
+        }
+    }
+    snake.changeDirection(event);
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     const gameOverButton = document.getElementById('gameOverButton');
