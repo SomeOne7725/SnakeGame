@@ -5,7 +5,7 @@ const scale = 20;
 const rows = canvas.height / scale;
 const columns = canvas.width / scale;
 
-const eatSound = new Audio('sound5.wav');
+const eatSound = new Audio('sounds/sound5.wav'); // Stelle sicher, dass die Datei im Ordner "sounds" liegt
 
 let snake;
 let apple;
@@ -13,7 +13,14 @@ let gameInterval;
 let score = 0;
 
 const appleImage = new Image();
-appleImage.src = 'apfel.png';
+
+// Setze den Pfad für das Bild - stelle sicher, dass es im richtigen Ordner liegt
+appleImage.src = 'images/apfel.png';  // Ich nehme an, dass sich die Bilddatei im Ordner "images" befindet
+
+// Warten, bis das Bild vollständig geladen ist, bevor es verwendet wird
+appleImage.onload = function() {
+    console.log("Apple image loaded successfully!");
+};
 
 const playButton = document.getElementById('playButton');
 const playButtonContainer = document.getElementById('playButtonContainer');
@@ -174,6 +181,7 @@ function Apple() {
         if (appleImage.complete) {
             ctx.drawImage(appleImage, this.x * scale, this.y * scale, scale, scale);
         } else {
+            // Alternativ-Rendering, wenn das Bild noch nicht geladen ist
             ctx.fillStyle = 'red';
             ctx.fillRect(this.x * scale, this.y * scale, scale, scale);
         }
